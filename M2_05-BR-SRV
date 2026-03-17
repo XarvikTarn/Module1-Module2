@@ -25,7 +25,7 @@ EOF
 cat <<EOF > /etc/ansible/hosts
 [all:vars]
 ansible_user=root
-ansible_password=___
+ansible_password=P@ssw0rd
 ansible_python_interpreter=/usr/bin/python3
 [targets]
 192.168.1.10    
