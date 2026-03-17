@@ -1,5 +1,47 @@
+cat <<EOF > /etc/openssh/sshd_config
+Port 22
+PermitRootLogin yes
+Subsystem sftp /usr/lib/openssh/sftp-server
+EOF
+echo "root:P@ssw0rd" | chpasswd
+systemctl enable sshd
+systemctl restart sshd
+systemctl restart NetworkManager
+
+
+
+#Если DHCP-CLI не будет работать
+nmcli con del DHCP-CLI
+nmcli con add con-name DHCP-CLI type ethernet ifname enp7s1 ipv4.method auto ipv4.dhcp-client-id 01:11:11:11:11:11
+nmcli con up DHCP-CLI
+
+
+
+echo "nameserver 77.88.8.8" > /etc/resolv.conf
+apt-get update && apt-get install -y chrony task-auth-ad-sssd libnss-role
 sed -i '/pool/d' /etc/chrony.conf
 sed -i '/server/d' /etc/chrony.conf
-echo "server 192.168.1.1 iburst prefer" >> /etc/chrony.conf
+echo "server 172.16.1.1 iburst prefer" >> /etc/chrony.conf
 systemctl restart chronyd
-sleep 3 && chronyc sources
+sleep 5 && chronyc sources
+
+nmcli c show --active
+nmcli con mod DHCP-CLI ipv4.dns "192.168.3.10"
+nmcli con mod DHCP-CLI ipv4.ignore-auto-dns yes
+nmcli con up DHCP-CLI
+system-auth write ad au-team.irpo hq-cli au-team administrator P@ssw0rd
+systemctl restart sssd
+sleep 3
+control libnss-role enabled
+roleadd hq wheel
+cat <<EOF > /etc/sudoers.d/hq_restrictions
+Cmnd_Alias HQ_CMDS = /bin/cat, /bin/grep, /usr/bin/id
+%wheel ALL=(ALL) NOPASSWD: HQ_CMDS
+EOF
+apt-get update && apt-get install -y nfs-clients
+mkdir -p /mnt/nfs
+echo "192.168.1.10:/raid/nfs /mnt/nfs nfs defaults 0 0" >> /etc/fstab
+mount -a
+df -h | grep /mnt/nfs
+touch /mnt/nfs/test_file.txt
+ls -l /mnt/nfs
