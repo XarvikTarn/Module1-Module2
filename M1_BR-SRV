@@ -23,3 +23,4 @@ AllowUsers sshuser
 EOF
 echo "nameserver 172.16.100.2" > /etc/net/ifaces/enp7s1/resolv.conf
 systemctl restart network
+systemctl restart sshd
