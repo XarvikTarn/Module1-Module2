@@ -97,5 +97,6 @@ systemctl enable --now dnsmasq && systemctl status --no-pager dnsmasq
 useradd -m -s /bin/bash net_admin
 echo "net_admin:P@ssw0rd" | chpasswd
 echo "net_admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/net_admin
+echo "nameserver 172.16.100.2" > /etc/net/ifaces/enp7s1/resolv.conf
 systemctl restart network sshd
 vtysh -c "show ip ospf neighbor"
