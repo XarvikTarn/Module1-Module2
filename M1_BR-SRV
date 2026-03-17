@@ -8,5 +8,18 @@ echo "nameserver 8.8.8.8" > /etc/net/ifaces/enp7s1/resolv.conf
 systemctl restart network && sleep 3
 apt-get update && apt-get install -y tzdata 
 timedatectl set-timezone Asia/Vladivostok && date 
+useradd -u 2026 -m -s /bin/bash sshuser
+echo "sshuser:P@ssw0rd" | chpasswd
+echo "sshuser ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sshuser
+echo "Authorized access only" > /etc/issue.net
+cat <<EOF >> /etc/openssh/sshd_config
+
+# Hardening Rules
+Port 2026
+PermitRootLogin no
+MaxAuthTries 2
+Banner /etc/issue.net
+AllowUsers sshuser
+EOF
 echo "nameserver 172.16.100.2" > /etc/net/ifaces/enp7s1/resolv.conf
 systemctl restart network
