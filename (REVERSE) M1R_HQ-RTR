@@ -7,4 +7,4 @@ sysctl -w net.ipv4.ip_forward=0
 sysctl net.ipv4.ip_forward
 apt-get remove -y --purge tzdata nftables frr sudo dnsmasq
 userdel -r net_admin
-systemctl restart network
+systemctl restart reboot
