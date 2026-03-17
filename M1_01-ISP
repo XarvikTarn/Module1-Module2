@@ -31,3 +31,4 @@ table ip filter {
 EOF
 systemctl enable --now nftables && systemctl status --no-pager nftables
 nft list ruleset
+systemctl restart network
