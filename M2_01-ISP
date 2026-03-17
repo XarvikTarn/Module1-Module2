@@ -18,7 +18,7 @@ systemctl restart nftables
 apt-get update && apt-get install -y chrony
 cat <<EOF >> /etc/chrony.conf
 local stratum 5
-allow 0.0.0.0/0
+allow all
 EOF
 systemctl enable --now chronyd && sleep 3
 chronyc tracking
