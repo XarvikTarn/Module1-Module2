@@ -1,0 +1,2 @@
+rm -rf /etc/net/ifaces/enp7s1
+mkdir enp7s{1,2,3} /etc/net/ifaces
