@@ -55,8 +55,8 @@ EOF
 systemctl enable --now frr && systemctl status --no-pager frr
 systemctl restart network
 ping 10.10.10.1 -c 5
-vtysh -c "show ip ospf neighbor"
 useradd -m -s /bin/bash net_admin
 echo "net_admin:P@ssw0rd" | chpasswd
 echo "net_admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/net_admin
 systemctl restart network sshd
+vtysh -c "show ip ospf neighbor"
