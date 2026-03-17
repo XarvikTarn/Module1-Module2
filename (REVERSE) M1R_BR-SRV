@@ -1,0 +1,5 @@
+hostnamectl set-hostname NONAME && exec bash
+rm -rf /etc/net/ifaces/enp7s1
+apt-get remove -y --purge tzdata 
+userdel sshuser
+systemctl restart reboot
