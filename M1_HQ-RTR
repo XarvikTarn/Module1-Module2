@@ -1,12 +1,14 @@
 hostnamectl set-hostname HQ-RTR.au-team.irpo && exec bash
 rm -rf /etc/net/ifaces/enp7s1
-mkdir /etc/net/ifaces/enp7s{1,2} gre1 vlan{100,200,999}
+mkdir /etc/net/ifaces/enp7s{1,2}
+mkdir /etc/net/ifaces/gre1
+mkdir /etc/net/ifaces/vlan{100,200,999}
 echo "TYPE=eth" > /etc/net/ifaces/enp7s1/options
 echo "172.16.1.2/28" > /etc/net/ifaces/enp7s1/ipv4address
 echo "default via 172.16.1.1" > /etc/net/ifaces/enp7s1/ipv4route
 echo "nameserver 8.8.8.8" > /etc/net/ifaces/enp7s1/resolv.conf
 echo "TYPE=eth" > /etc/net/ifaces/enp7s2/options
-cat <<EOF > /etc/net/ifaces/gre1
+cat <<EOF > /etc/net/ifaces/gre1/options
 TYPE=iptun
 TUNTYPE=gre
 TUNLOCAL=172.16.1.2
@@ -36,7 +38,7 @@ echo "172.16.99.1/29" > /etc/net/ifaces/vlan999/ipv4address
 sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/' /etc/net/sysctl.conf
 sysctl -w net.ipv4.ip_forward=1
 sysctl net.ipv4.ip_forward
-systemctl restart network
+systemctl restart network && sleep 3
 apt-get update && apt-get install -y tzdata nftables frr sudo dnsmasq
 timedatectl set-timezone Asia/Vladivostok && date 
 cat <<EOF > /etc/nftables/nftables.nft
@@ -90,4 +92,6 @@ cat <<EOF >> /etc/resolvconf.conf
 resolv_conf_local_only=NO
 deny_interfaces="lo.dnsmasq"
 EOF
+resolvconf -u
 systemctl enable --now dnsmasq && systemctl status --no-pager dnsmasq
+systemctl restart network
