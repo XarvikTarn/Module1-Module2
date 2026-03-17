@@ -1,0 +1,8 @@
+hostnamectl set-hostname NONAME && exec bash
+rm -rf /etc/net/ifaces/enp7s{1,2,3}
+sed -i 's/net.ipv4.ip_forward = 1/net.ipv4.ip_forward = 0/' /etc/net/sysctl.conf
+sysctl -w net.ipv4.ip_forward=0
+sysctl net.ipv4.ip_forward
+systemctl restart network
+apt-get remove -y --purge tzdata nftables 
+systemctl restart network
