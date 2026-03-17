@@ -1,4 +1,4 @@
 hostnamectl set-hostname NONAME && exec bash
 nmcli con del DHCP-CLI 
 apt-get remove -y --purge tzdata 
-systemctl restart network
+systemctl restart reboot
