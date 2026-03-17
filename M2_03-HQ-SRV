@@ -1,0 +1,5 @@
+sed -i '/pool/d' /etc/chrony.conf
+sed -i '/server/d' /etc/chrony.conf
+echo "server 192.168.1.1 iburst prefer" >> /etc/chrony.conf
+systemctl restart chronyd
+sleep 3 && chronyc sources
