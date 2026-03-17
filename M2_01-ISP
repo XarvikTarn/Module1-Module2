@@ -1,0 +1,25 @@
+cat <<EOF > /etc/nftables/nftables.nft
+#!/usr/sbin/nft -f
+flush ruleset
+table ip nat {
+    chain postrouting {
+        type nat hook postrouting priority srcnat;
+        oifname "enp7s1" masquerade
+    }
+}
+table ip filter {
+    chain forward {
+        type filter hook forward priority 0;
+        tcp flags syn tcp option maxseg size set 1400
+    }
+}
+EOF
+systemctl restart nftables
+apt-get update && apt-get install -y chrony
+cat <<EOF >> /etc/chrony.conf
+local stratum 5
+allow 0.0.0.0/0
+EOF
+systemctl enable --now chronyd && sleep 3
+chronyc tracking
+chronyc sources
