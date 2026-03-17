@@ -1,6 +1,6 @@
 hostnamectl set-hostname ISP.au-team.irpo && exec bash
 rm -rf /etc/net/ifaces/enp7s1
-mkdir enp7s{1,2,3} /etc/net/ifaces
+mkdir /etc/net/ifaces/enp7s{1,2,3}
 echo "TYPE=eth" > /etc/net/ifaces/enp7s1/options
 echo "BOOTPROTO=dhcp" >> /etc/net/ifaces/enp7s1/options
 echo "TYPE=eth" > /etc/net/ifaces/enp7s2/options
