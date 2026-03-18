@@ -7,16 +7,6 @@ echo "root:P@ssw0rd" | chpasswd
 systemctl enable sshd
 systemctl restart sshd
 systemctl restart NetworkManager
-
-
-
-#Если DHCP-CLI не будет работать
-nmcli con del DHCP-CLI
-nmcli con add con-name DHCP-CLI type ethernet ifname enp7s1 ipv4.method auto ipv4.dhcp-client-id 01:11:11:11:11:11
-nmcli con up DHCP-CLI
-
-
-
 echo "nameserver 77.88.8.8" > /etc/resolv.conf
 apt-get update && apt-get install -y chrony task-auth-ad-sssd libnss-role
 sed -i '/pool/d' /etc/chrony.conf
