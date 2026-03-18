@@ -37,3 +37,7 @@ mount -a
 df -h | grep /mnt/nfs
 touch /mnt/nfs/test_file.txt
 ls -l /mnt/nfs
+
+
+apt-get update && apt-get install -y yandex-browser-stable
+
