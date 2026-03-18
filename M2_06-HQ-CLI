@@ -9,11 +9,13 @@ systemctl restart sshd
 systemctl restart NetworkManager
 echo "nameserver 77.88.8.8" > /etc/resolv.conf
 apt-get update && apt-get install -y chrony task-auth-ad-sssd libnss-role
+sleep 3 && ip -br -c a
 sed -i '/pool/d' /etc/chrony.conf
 sed -i '/server/d' /etc/chrony.conf
 echo "server 172.16.1.1 iburst prefer" >> /etc/chrony.conf
 systemctl restart chronyd
 sleep 5 && chronyc sources
+
 
 nmcli c show --active
 nmcli con mod DHCP-CLI ipv4.dns "192.168.3.10"
