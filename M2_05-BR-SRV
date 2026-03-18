@@ -59,3 +59,53 @@ for i in {1..5}; do
   samba-tool group addmembers "hq" hquser$i
 done
 samba-tool group listmembers hq
+
+
+
+mkdir -p /mnt/cdrom
+mount /dev/sr0 /mnt/cdrom
+apt-get update && apt-get install -y docker-engine docker-compose-v2
+systemctl enable --now docker
+docker load -i /mnt/cdrom/docker/site_latest.tar
+docker load -i /mnt/cdrom/docker/mariadb_latest.tar
+docker images
+mkdir -p /opt/testapp
+cd /opt/testapp
+cat <<EOF > docker-compose.yaml
+services:
+  db:
+    container_name: db
+    image: mariadb:latest
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testc
+      MYSQL_PASSWORD: P@ssw0rd
+      MYSQL_ROOT_PASSWORD: toor
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+  testapp:
+    container_name: testapp
+    image: site:latest
+    ports:
+      - "8080:8000"
+    environment:
+      DB_TYPE: "maria"
+      DB_HOST: "db"
+      DB_PORT: "3306"
+      DB_NAME: "testdb"
+      DB_USER: "testc"
+      DB_PASS: "P@ssw0rd"
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  db_data:
+EOF
+systemctl disable --now ahttpd httpd2 nginx 2>/dev/null || true
+docker compose up -d
+sleep 5
+docker compose ps
+curl localhost:8080 | head -n 20
