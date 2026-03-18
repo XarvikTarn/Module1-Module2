@@ -1,17 +1,18 @@
 echo "nameserver 77.88.8.8" > /etc/resolv.conf
 apt-get update && apt-get install -y chrony
-sed -i 's/192.168.1.10/192.168.3.10/' /etc/net/ifaces/*/resolv.conf 2>/dev/null || true
 cat <<EOF > /etc/openssh/sshd_config
 Port 22
 PermitRootLogin yes
 Subsystem sftp /usr/lib/openssh/sftp-server
 EOF
 echo "root:P@ssw0rd" | chpasswd
+sed -i 's/192.168.1.10/192.168.3.10/' /etc/net/ifaces/*/resolv.conf 2>/dev/null || true
 sed -i 's|172.16.10.1.*|192.168.3.1/28|' /etc/net/ifaces/*/ipv4address 2>/dev/null || true
 sed -i 's|10.10.10.2.*|192.168.5.2/30|' /etc/net/ifaces/*/ipv4address 2>/dev/null || true
 grep -rl "172.16.100.2" /etc/net/ifaces/ | xargs -r sed -i 's/172.16.100.2/192.168.3.10/'
 systemctl enable sshd
-systemctl restart network sshd
+systemctl restart network frr sshd
+
 sed -i '/pool/d' /etc/chrony.conf
 sed -i '/server/d' /etc/chrony.conf
 echo "server 172.16.2.1 iburst prefer" >> /etc/chrony.conf
