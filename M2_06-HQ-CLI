@@ -11,7 +11,7 @@ apt-get update && apt-get install -y chrony task-auth-ad-sssd libnss-role
 #Setting up NTP-Client
 sed -i '/pool/d' /etc/chrony.conf
 sed -i '/server/d' /etc/chrony.conf
-echo "server 192.168.1.1 iburst prefer" >> /etc/chrony.conf
+echo "server 172.16.1.1 iburst prefer" >> /etc/chrony.conf
 systemctl restart chronyd
 sleep 3 && chronyc sources
 
