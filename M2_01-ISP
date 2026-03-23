@@ -21,7 +21,7 @@ apt-get update && apt-get install -y chrony
 #Setting up NTP-Server
 cat <<EOF >> /etc/chrony.conf
 local stratum 5
-allow 0.0.0.0/0
+allow all
 EOF
 systemctl enable --now chronyd
 chronyc tracking
