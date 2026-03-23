@@ -1,3 +1,4 @@
+#Preparing ISP for configuration
 cat <<EOF > /etc/nftables/nftables.nft
 #!/usr/sbin/nft -f
 flush ruleset
@@ -16,16 +17,47 @@ table ip filter {
 EOF
 systemctl restart nftables
 apt-get update && apt-get install -y chrony
+
+#Setting up NTP-Server
 cat <<EOF >> /etc/chrony.conf
 local stratum 5
-allow all
+allow 0.0.0.0/0
 EOF
-systemctl enable --now chronyd && sleep 3
+systemctl enable --now chronyd
 chronyc tracking
-chronyc sources
 
-
-
+#Setting up Nginx-Client
+ssh -p 2026 root@172.16.1.10
+apt-get update && apt-get install -y nginx apache2 curl
+htpasswd -bc /etc/nginx/.htpasswd WEBc P@ssw0rd
+cat <<EOF > /etc/nginx/sites-available.d/web.conf
+server {
+    listen 80;
+    server_name web.au-team.irpo;
+    location / {
+        proxy_pass http://172.16.1.10:8080;
+        proxy_set_header Host \$host;
+        auth_basic "Restricted Area";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+    }
+}
+EOF
+cat <<EOF > /etc/nginx/sites-available.d/docker.conf
+server {
+    listen 80;
+    server_name docker.au-team.irpo;
+    location / {
+        proxy_pass http://172.16.2.10:8080;
+        proxy_set_header Host \$host;
+    }
+}
+EOF
+ln -s /etc/nginx/sites-available.d/web.conf /etc/nginx/sites-enabled.d/web.conf
+ln -s /etc/nginx/sites-available.d/docker.conf /etc/nginx/sites-enabled.d/docker.conf
+systemctl enable --now nginx
+nginx -t
+systemctl restart nginx
+ls -l /etc/nginx/sites-enabled.d/
 echo "127.0.0.1 web.au-team.irpo docker.au-team.irpo" >> /etc/hosts
 curl http://docker.au-team.irpo | head -n 10
 curl -I http://web.au-team.irpo
