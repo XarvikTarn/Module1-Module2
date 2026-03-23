@@ -1,26 +1,25 @@
+#Preparing BR-SRV for configuration
+echo "nameserver 77.88.8.8" > /etc/resolv.conf
+apt-get update && apt-get install -y chrony ansible sshpass task-samba-dc bind-utils
+systemctl disable --now bind 2>/dev/null || true
+sed -i 's/192.168.1.10/192.168.3.10/' /etc/net/ifaces/*/resolv.conf 2>/dev/null || true
 cat <<EOF > /etc/openssh/sshd_config
 Port 22
 PermitRootLogin yes
 Subsystem sftp /usr/lib/openssh/sftp-server
 EOF
-echo "root:P@ssw0rd" | chpasswd
-sed -i 's|172.16.10.2.*|192.168.3.10/28|' /etc/net/ifaces/*/ipv4address 2>/dev/null || true
-sed -i 's|172.16.10.1.*|192.168.3.1|' /etc/net/ifaces/*/ipv4route 2>/dev/null || true
-grep -rl "172.16.100.2" /etc/net/ifaces/ | xargs -r sed -i 's/172.16.100.2/192.168.3.10/'
-sed -i 's/192.168.1.10/192.168.3.10/' /etc/net/ifaces/*/resolv.conf 2>/dev/null || true
 systemctl enable sshd
 systemctl restart network sshd
-echo "nameserver 77.88.8.8" > /etc/resolv.conf
-apt-get update && apt-get install -y chrony ansible sshpass task-samba-dc bind-utils
-ip -br -c a; echo ""; ansible --version
-systemctl disable --now bind 2>/dev/null || true
+ansible --version
+
+#Setting up NTP-Client
 sed -i '/pool/d' /etc/chrony.conf
 sed -i '/server/d' /etc/chrony.conf
-echo "server 172.16.2.1 iburst prefer" >> /etc/chrony.conf
+echo "server 192.168.3.1 iburst prefer" >> /etc/chrony.conf
 systemctl restart chronyd
-sleep 5 && chronyc sources
+sleep 3 && chronyc sources
 
-
+#Setting up Ansible
 mkdir -p /etc/ansible
 cat <<EOF > /etc/ansible/ansible.cfg
 [defaults]
@@ -33,17 +32,17 @@ ansible_user=root
 ansible_password=P@ssw0rd
 ansible_python_interpreter=/usr/bin/python3
 [targets]
-192.168.1.10    
-192.168.2.10    
-192.168.1.1     
-192.168.3.1     
+192.168.1.10    # HQ-SRV
+192.168.2.10    # HQ-CLI
+192.168.1.1     # HQ-RTR (LAN)
+192.168.3.1     # BR-RTR (LAN)
 EOF
 ansible all -m ping
 
+#Setting up Samba-DC Server
 systemctl disable --now smb nmb krb5kdc slapd bind 2>/dev/null || true
 rm -f /etc/samba/smb.conf
 samba-tool domain provision
-
 \cp -f /var/lib/samba/private/krb5.conf /etc/krb5.conf
 systemctl enable --now samba
 echo "nameserver 127.0.0.1" > /etc/net/ifaces/enp7s1/resolv.conf
@@ -60,8 +59,7 @@ for i in {1..5}; do
 done
 samba-tool group listmembers hq
 
-
-
+#Setting up Docker-Server
 mkdir -p /mnt/cdrom
 mount /dev/sr0 /mnt/cdrom
 apt-get update && apt-get install -y docker-engine docker-compose-v2
