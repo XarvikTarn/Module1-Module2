@@ -51,6 +51,7 @@ echo "search au-team.irpo" >> /etc/net/ifaces/enp7s1/resolv.conf
 systemctl restart network
 host -t A au-team.irpo
 kinit administrator@AU-TEAM.IRPO
+#ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО - КОПИРУЙ-ВСТАВЛЯЙ РОВНО ДО "kinit administrator@AU-TEAM.IRPO" - ВВЕДИ ПАРОЛЬ "P@ssw0rd" - И ТОЛЬКО ПОТОМ КОПИРУЙ-ВСТАВЛЯЙ ОСТАЛЬНОЕ! ИНАЧЕ ОШИБКИ!
 klist
 samba-tool group add hq
 for i in {1..5}; do
