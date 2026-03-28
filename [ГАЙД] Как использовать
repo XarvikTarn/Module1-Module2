@@ -13,3 +13,45 @@
 # В Модуле-1 НЕ выполняйте что-либо, пока не выполните целиком код на ISP. Оно не заработает. (Файлы нужные не сможете скачать).
 # В Модуле-1 НЕ выполняйте что-либо на HQ-SRV и HQ-CLI, пока не выполните целиком код на HQ-RTR. Оно не заработает (файлы нужные не сможете скачать).
 # В Модуле-1 НЕ выполняйте что-либо на BR-SRV, пока не выполните целиком код на BR-RTR. Оно не заработает (файлы нужные не сможете скачать).
+# Пустые строки и комментарии (#комментарий) = разделение блоков кода. Чтобы легче понимать где что. 
+
+# [МОДУЛЬ-1 - ПОРЯДОК ВЫПОЛНЕНИЯ]
+# 01 - M1_01 - ISP - ЦЕЛИКОМ СКОПИРОВАТЬ-ВСТАВИТЬ
+# 02 - M1_02 - HQ-RTR - ЦЕЛИКОМ СКОПИРОВАТЬ-ВСТАВИТЬ
+# 03 - M1_03 - BR-RTR - ЦЕЛИКОМ СКОПИРОВАТЬ-ВСТАВИТЬ
+# 04 - M1_04 - BR-SRV - ЦЕЛИКОМ СКОПИРОВАТЬ-ВСТАВИТЬ
+# 05 - M1_05 - HQ-CLI - ЦЕЛИКОМ СКОПИРОВАТЬ-ВСТАВИТЬ
+# 06 - M1_06 - HQ-SRV - ЦЕЛИКОМ СКОПИРОВАТЬ-ВСТАВИТЬ
+
+# [МОДУЛЬ-2 - ПОРЯДОК ВЫПОЛНЕНИЯ]
+# 01 - M2_01 - ISP - Блок: "Preparing ISP for configuration"
+# 02 - M2_02 - HQ-RTR - Блок: "Preparing HQ-RTR for configuration"
+# 03 - M2_03 - BR-RTR - Блок: "Preparing BR-RTR for configuration"
+# 04 - M2_04 - HQ-SRV - Блок: "Preparing HQ-SRV for configuration"
+# 05 - M2_05 - BR-SRV - Блок: "Preparing BR-SRV for configuration"
+# 06 - M2_06 - HQ-CLI - Блок: "Preparing HQ-CLI for configuration"
+# 07 - M2_01 - ISP - Блок: "#Setting up NTP-Server"
+# 08 - M2_02 - HQ-RTR - Блок: "#Setting up NTP-Client"
+# 09 - M2_03 - BR-RTR - Блок: "#Setting up NTP-Client"
+# 10 - M2_04 - HQ-SRV - Блок: "#Setting up NTP-Client"
+# 11 - M2_05 - BR-SRV - Блок: "#Setting up NTP-Client"
+# 12 - M2_06 - HQ-CLI - Блок: "#Setting up NTP-Client"
+# 13 - M2_05 - BR-SRV - Блок: "#Setting up Ansible"
+# 14 - M2_05 - BR-SRV - Блок: "#Setting up Samba-DC Server"
+# 15 - M2_04 - HQ-SRV - Блок: "#Setting up RAID"
+# 15 - M2_04 - HQ-SRV - Блок: "#Setting up NFS-Server"
+# 15 - M2_06 - HQ-CLI - Блок: "#Setting up NFS-Client"
+# 16 - M2_05 - BR-SRV - Блок: "#Setting up LAMP"
+# 17 - M2_05 - BR-SRV - Блок: "#Setting up Docker-Server"
+# 18 - M2_06 - HQ-CLI - Блок: "#Setting up Docker-Client"
+# 19 - M2_02 - HQ-RTR - Блок: "#Setting up Nginx-Server"
+# 20 - M2_03 - BR-RTR - Блок: "#Setting up Nginx-Server"
+# 21 - M2_01 - ISP - Блок: "#Setting up Nginx-Client"
+
+
+
+
+
+
+
+
