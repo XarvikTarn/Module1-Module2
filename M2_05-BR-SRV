@@ -34,7 +34,7 @@ ansible_python_interpreter=/usr/bin/python3
 [targets]
 192.168.1.10    # HQ-SRV
 192.168.2.10    # HQ-CLI
-172.16.1.1     # HQ-RTR (LAN)
+172.16.1.10     # HQ-RTR (LAN)
 192.168.3.1     # BR-RTR (LAN)
 EOF
 ansible all -m ping
