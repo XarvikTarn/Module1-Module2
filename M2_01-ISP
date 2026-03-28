@@ -24,6 +24,7 @@ local stratum 5
 allow all
 EOF
 systemctl enable --now chronyd
+systemctl restart chronyd & sleep 3
 chronyc tracking
 
 #Setting up Nginx-Client
