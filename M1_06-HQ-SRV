@@ -71,6 +71,10 @@ chown root:named /etc/bind/zone/16.172.in-addr.arpa
 chmod 640 /etc/bind/zone/16.172.in-addr.arpa
 systemctl enable --now bind && systemctl status --no-pager bind 
 echo "nameserver 127.0.0.1" > /etc/net/ifaces/enp7s1/resolv.conf
+systemctl restart bind
+rndc reload
+host 172.16.100.2 127.0.0.1
+
 useradd -u 2026 -m -s /bin/bash sshuser
 echo "sshuser:P@ssw0rd" | chpasswd
 echo "sshuser ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sshuser
