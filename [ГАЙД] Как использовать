@@ -66,7 +66,7 @@
 # 16 - M2_04 - HQ-SRV - Блок: "#Setting up RAID"
 # 17 - M2_04 - HQ-SRV - Блок: "#Setting up NFS-Server"
 # 18 - M2_06 - HQ-CLI - Блок: "#Setting up NFS-Client"
-# 19 - M2_05 - BR-SRV - Блок: "#Setting up LAMP"
+# 19 - M2_04 - HQ-SRV - Блок: "#Setting up LAMP"
 # 20 - M2_05 - BR-SRV - Блок: "#Setting up Docker-Server"
 # 21 - M2_06 - HQ-CLI - Блок: "#Setting up Docker-Client"
 # 22 - M2_02 - HQ-RTR - Блок: "#Setting up Nginx-Server"
