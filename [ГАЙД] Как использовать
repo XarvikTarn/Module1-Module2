@@ -77,11 +77,11 @@
 
 
 #[Заметка для себя]
-# Если будет ошибка "/home/9KAS.LOCAL/hquser1 not available; exiting" - попробуй вставить этот цикл, чтобы вручную создать - протестируй на отдельном стенде:
+# Если будет ошибка "/home/AU-TEAM.IRPO/hquser1 not available; exiting" - попробуй вставить этот цикл, чтобы вручную создать - протестируй на отдельном стенде:
 for i in {1..5}; do
-  mkdir -p /home/9KAS.LOCAL/hquser$i
-  chown hquser1:domain\ users /home/9KAS.LOCAL/hquser$i
-  chmod 700 /home/9KAS.LOCAL/hquser$i
+  mkdir -p /home/AU-TEAM.IRPO/hquser$i
+  chown hquser1:domain\ users /home/AU-TEAM.IRPO/hquser$i
+  chmod 700 /home/AU-TEAM.IRPO/hquser$i
 done
 
 
