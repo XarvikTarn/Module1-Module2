@@ -1,4 +1,5 @@
 #Preparing BR-RTR for configuration
+sed -i 's|http://ftp.altlinux.org/pub/distributions/ALTLinux|http://10.45.33.250:3142/altlinux|g' /etc/apt/sources.list.d/alt.list
 echo "nameserver 77.88.8.8" > /etc/resolv.conf
 apt-get update && apt-get install -y chrony
 sed -i 's/192.168.1.10/192.168.3.10/' /etc/net/ifaces/*/resolv.conf 2>/dev/null || true
