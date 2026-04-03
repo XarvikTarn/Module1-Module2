@@ -1,4 +1,5 @@
 #Preparing ISP for configuration
+sed -i 's|http://ftp.altlinux.org/pub/distributions/ALTLinux|http://10.45.33.250:3142/altlinux|g' /etc/apt/sources.list.d/alt.list
 cat <<EOF > /etc/nftables/nftables.nft
 #!/usr/sbin/nft -f
 flush ruleset
