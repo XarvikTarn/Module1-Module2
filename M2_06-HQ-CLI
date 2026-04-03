@@ -1,4 +1,5 @@
 #Preparing HQ-CLI for configuration
+sed -i 's|http://ftp.altlinux.org/pub/distributions/ALTLinux|http://10.45.33.250:3142/altlinux|g' /etc/apt/sources.list.d/alt.list
 cat <<EOF > /etc/openssh/sshd_config
 Port 22
 PermitRootLogin yes
