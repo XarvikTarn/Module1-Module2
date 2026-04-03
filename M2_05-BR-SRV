@@ -1,4 +1,5 @@
 #Preparing BR-SRV for configuration
+sed -i 's|http://ftp.altlinux.org/pub/distributions/ALTLinux|http://10.45.33.250:3142/altlinux|g' /etc/apt/sources.list.d/alt.list
 echo "nameserver 77.88.8.8" > /etc/resolv.conf
 apt-get update && apt-get install -y chrony ansible sshpass task-samba-dc bind-utils
 systemctl disable --now bind 2>/dev/null || true
