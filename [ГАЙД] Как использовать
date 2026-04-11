@@ -32,11 +32,14 @@
 # В пятом вопросе - [77.88.8.8]
 # После этого там попросят ввести пароль для пользователя-администратора. Введите пароль "P@ssw0rd". Потом введите его ещё раз в следующем, там попросят его повторить.
 # Если что-то будет не так, как указано выше (AU-TEAM не пишет в скобках, или не пишет 77.88.8) - нажмите Ctrl + C (прервать процесс), пропишите команду "echo "nameserver 77.88.8.8" > /etc/resolv.conf",...
-# ...и пропишите команду "samba-tool domain provision". Это запустит процесс второй раз, но всё будет на местах, как и должно.
+# ...и пропишите команду "samba-tool domain provision". Это запустит процесс второй раз, но всё должно работать.
 # Если вы ошибились ПРИ СОЗДАНИИ пароля и установили не тот - введите "samba-tool user setpassword Administrator" (сброс пароля) и введите пароль "P@ssword". 
 # Вас потом ещё спросят пароль, после команды "kinit administrator@AU-TEAM.IRPO" - тут может быть такая шляпа, что пароль с первого раза не примет - нажмите стрелочку вверх (введёт последнюю команду), нажмите Enter...
 # ...и попробуйте ввести его ещё раз, медленно и посимвольно - если неправильно и второй раз - введите "samba-tool user setpassword Administrator" (сброс пароля) и введите пароль "P@ssword". 
 # При настройке клиента Samba-DC (пункт №15) - если после команды "system-auth write ad au-team.irpo hq-cli au-team administrator P@ssw0rd" не появилось надписи "AU-TEAM.IRPO" после "HQ-CLI" - введи её ещё раз.
+# ЕСЛИ ПРИ УСТАНОВКЕ SAMBA-DC (где появляется зелёный текст), всё зависло и не идёт дальше - Ctrl + C, повторите команду "samba-tool domain provision", и всё должно работать.
+# ЕСДИ ПРИ НАСТРОЙКЕ SAMBA-DC произошли критические ошибки (ERROR, и тд) - удалите службу через "apt-get remove -y --purge task-samba-dc bind-utils" и установите заново: "apt-get install -y task-samba-dc bind-utils"...
+# ...потом попробуйте заново сделать все команды для настройки Samba-DC и блока "#Setting up Samba-DC Server"
 
 
 # [МОДУЛЬ-1 - ПОРЯДОК ВЫПОЛНЕНИЯ]
@@ -69,21 +72,11 @@
 # 19 - M2_04 - HQ-SRV - Блок: "#Setting up LAMP"
 # 20 - M2_05 - BR-SRV - Блок: "#Setting up Docker-Server"
 # 21 - M2_06 - HQ-CLI - Блок: "#Setting up Docker-Client"
+
+#ВАЖНО: на этапе 21 "#Setting up Docker-Client" - открой в Proxmox на HQ-CLI вкладку "console" в верхнем-правом углу страницы, и выбери "noVNC" - введи пароль "resu", открой Yandex Browser, и в новой вкладке введи:
+# "http://192.168.1.10" - там будет страница с "DemoTest". 
+Потом в другой вкладке введи "http://192.168.3.10:8080" - там будет сайт с текстом "важный и нужный сайт" - если так, то всё работает.
+
 # 22 - M2_02 - HQ-RTR - Блок: "#Setting up Nginx-Server"
 # 23 - M2_03 - BR-RTR - Блок: "#Setting up Nginx-Server"
 # 24 - M2_01 - ISP - Блок: "#Setting up Nginx-Client"
-
-
-
-
-#[Заметка для себя]
-# Если будет ошибка "/home/AU-TEAM.IRPO/hquser1 not available; exiting" - попробуй вставить этот цикл, чтобы вручную создать - протестируй на отдельном стенде:
-for i in {1..5}; do
-  mkdir -p /home/AU-TEAM.IRPO/hquser$i
-  chown hquser1:domain\ users /home/AU-TEAM.IRPO/hquser$i
-  chmod 700 /home/AU-TEAM.IRPO/hquser$i
-done
-
-
-
-
