@@ -45,11 +45,13 @@ systemctl enable --now mysqld
 mkdir -p /mnt/cdrom
 mount /dev/sr0 /mnt/cdrom
 mariadb -e "CREATE DATABASE webdb;"
+#ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО - КОПИРУЙ-ВСТАВЛЯЙ РОВНО ДО "mariadb -e "CREATE DATABASE webdb;"" - чтобы не было ошибок. Потом скопируй следующие команды ДО:...
 mariadb -e "CREATE USER 'webc'@'localhost' IDENTIFIED BY 'P@ssw0rd';"
 mariadb -e "GRANT ALL PRIVILEGES ON webdb.* TO 'webc'@'localhost';"
 mariadb -e "FLUSH PRIVILEGES;"
 mariadb webdb < /mnt/cdrom/web/dump.sql
 mariadb -e "SHOW TABLES FROM webdb;"
+#- ДО СЮДА. Если вывело таблицу "employees" - значит всё работает, и можешь копировать весь остаток кода ниже
 rm -f /var/www/html/index.html
 \cp -r /mnt/cdrom/web/* /var/www/html/
 chown -R apache2:apache2 /var/www/html/
