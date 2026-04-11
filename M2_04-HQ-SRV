@@ -51,7 +51,7 @@ mariadb -e "FLUSH PRIVILEGES;"
 mariadb webdb < /mnt/cdrom/web/dump.sql
 mariadb -e "SHOW TABLES FROM webdb;"
 rm -f /var/www/html/index.html
-cp -r /mnt/cdrom/web/* /var/www/html/
+\cp -r /mnt/cdrom/web/* /var/www/html/
 chown -R apache2:apache2 /var/www/html/
 sed -i 's/$username = .*/$username = "webc";/' /var/www/html/index.php
 sed -i 's/$password = .*/$password = "P@ssw0rd";/' /var/www/html/index.php
