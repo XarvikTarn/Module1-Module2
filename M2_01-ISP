@@ -30,6 +30,7 @@ chronyc tracking
 
 #Setting up Nginx-Client
 ssh -p 2026 root@172.16.1.10
+#ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО - КОПИРУЙ-ВСТАВЬ ЛИШЬ "ssh -p 2026 root@172.16.1.10" - если спросит (yes/no) - пропиши "no". ПОТОМ копируй всё что ниже, это чисто для проверки.
 apt-get update && apt-get install -y nginx apache2 curl
 htpasswd -bc /etc/nginx/.htpasswd WEBc P@ssw0rd
 cat <<EOF > /etc/nginx/sites-available.d/web.conf
