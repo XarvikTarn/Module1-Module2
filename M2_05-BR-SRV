@@ -80,7 +80,7 @@ services:
     image: mariadb:latest
     environment:
       MYSQL_DATABASE: testdb
-      MYSQL_USER: testc
+      MYSQL_USER: test
       MYSQL_PASSWORD: P@ssw0rd
       MYSQL_ROOT_PASSWORD: toor
     volumes:
@@ -97,7 +97,7 @@ services:
       DB_HOST: "db"
       DB_PORT: "3306"
       DB_NAME: "testdb"
-      DB_USER: "testc"
+      DB_USER: "test"
       DB_PASS: "P@ssw0rd"
     depends_on:
       - db
