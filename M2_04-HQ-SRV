@@ -51,7 +51,7 @@ mariadb -e "GRANT ALL PRIVILEGES ON webdb.* TO 'web'@'localhost';"
 mariadb -e "FLUSH PRIVILEGES;"
 mariadb webdb < /mnt/cdrom/web/dump.sql
 mariadb -e "SHOW TABLES FROM webdb;"
-#- ДО СЮДА. Если вывело таблицу "employees" - значит всё работает, и можешь копировать весь остаток кода ниже
+#ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО - КОПИРУЙ-ВСТАВЛЯЙ РОВНО ДО "mariadb -e "SHOW TABLES FROM webdb;"" Если вывело таблицу "employees" - значит всё работает, и можешь копировать весь остаток кода ниже
 rm -f /var/www/html/index.html
 \cp -r /mnt/cdrom/web/* /var/www/html/
 chown -R apache2:apache2 /var/www/html/
