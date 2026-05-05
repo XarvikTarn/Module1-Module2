@@ -74,7 +74,7 @@
 # 20 - M2_05 - BR-SRV - Блок: "#Setting up Docker-Server"
 # 21 - M2_06 - HQ-CLI - Блок: "#Setting up Docker-Client"
 
-#ВАЖНО: на этапе 21 "#Setting up Docker-Client" - открой в Proxmox на HQ-CLI вкладку "console" в верхнем-правом углу страницы, и выбери "noVNC" - введи пароль "resu", открой Yandex Browser, и в новой вкладке введи:
+#ВАЖНО: на этапе 21 "#Setting up Docker-Client" - открой в Proxmox на HQ-CLI вкладку "console" в верхнем-правом углу страницы, и выбери "noVNC" - введи пароль "resu" (логин - user, на всякий), открой Yandex Browser, и в новой вкладке введи:
 # "http://192.168.1.10" - там будет страница с "DemoTest". 
 Потом в другой вкладке введи "http://192.168.3.10:8080" - там будет сайт с текстом "важный и нужный сайт" - если так, то всё работает.
 
