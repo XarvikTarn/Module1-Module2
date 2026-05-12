@@ -101,3 +101,4 @@ echo "net_admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/net_admin
 echo "nameserver 172.16.100.2" > /etc/net/ifaces/enp7s1/resolv.conf
 systemctl restart network sshd
 vtysh -c "show ip ospf neighbor"
+history -a
