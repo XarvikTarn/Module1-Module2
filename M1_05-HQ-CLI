@@ -10,3 +10,4 @@ nmcli con mod DHCP-CLI ipv4.dns 172.16.100.2
 nmcli con up DHCP-CLI
 systemctl restart network
 ssh sshuser@hq-srv.au-team.irpo -p 2026 "date && ping ya.ru -c 2"
+history -a
