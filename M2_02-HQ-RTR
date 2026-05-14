@@ -37,3 +37,4 @@ table ip nat {
 EOF
 systemctl restart nftables
 nft list ruleset
+history -a
