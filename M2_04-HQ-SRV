@@ -61,3 +61,4 @@ sed -i 's/$dbname = .*/$dbname = "webdb";/' /var/www/html/index.php
 grep -E "username|password|dbname" /var/www/html/index.php
 systemctl enable --now httpd2
 curl -s localhost | grep -i "td" | head -n 5
+history -a
