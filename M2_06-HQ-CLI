@@ -32,12 +32,20 @@ Cmnd_Alias HQ_CMDS = /bin/cat, /bin/grep, /usr/bin/id
 EOF
 
 
-#ВВОДИ ЭТИ 4 КОМАНДЫ СТРОГО ПО 1 СТРОКЕ - ПОСЛЕ "su - hquser1" ВВЕДИ "sudo id" И "sudo reboot" (ошибка должна быть, всё норм) - ПОТОМ ВВЕДИ "exit" И ПОСЛЕ "exit" ДЕЛАЙ ОСТАЛЬНЫЕ КОМАНДЫ ПОТОМ
+#ВВОДИ ЭТИ 4 КОМАНДЫ СТРОГО ПО 1 СТРОКЕ - ПОСЛЕ "su - hquser1" ВВЕДИ пароль P@ssw0rd для входа, а потом "sudo id" И "sudo reboot" (ошибка должна быть, всё норм) - ПОТОМ ВВЕДИ "exit" И ПОСЛЕ "exit" ДЕЛАЙ ОСТАЛЬНЫЕ КОМАНДЫ
 mkdir -p /home/AU-TEAM.IRPO/hquser1
 \cp -af /etc/skel/. /home/AU-TEAM.IRPO/hquser1/
 chown -R hquser1:hq /home/AU-TEAM.IRPO/hquser1
 su - hquser1
 
+##################################################################
+#ЕСЛИ РАБОТАТЬ НЕ БУДЕТ - ВВЕДИ "rm -rf /home/AU-TEAM.IRPO/hquser1" для удаления директории, и потом ВВЕДИ эти команды ниже:
+for i in {1..5}; do
+  mkdir -p /home/AU-TEAM.IRPO/hquser$i
+  cp -r /etc/skel/. /home/AU-TEAM.IRPO/hquser$i/
+  chown -R hquser$i@au-team.irpo:domain\ users@au-team.irpo /home/AU-TEAM.IRPO/hquser$i
+done
+##################################################################
 
 #Setting up NFS-Client
 apt-get update && apt-get install -y nfs-clients
