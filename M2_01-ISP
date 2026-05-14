@@ -21,7 +21,6 @@ apt-get update && apt-get install -y chrony
 
 #Setting up NTP-Server
 cat <<EOF >> /etc/chrony.conf
-port 123
 local stratum 5
 allow all
 EOF
