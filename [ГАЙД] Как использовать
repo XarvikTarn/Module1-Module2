@@ -81,3 +81,22 @@
 # 22 - M2_02 - HQ-RTR - Блок: "#Setting up Nginx-Server"
 # 23 - M2_03 - BR-RTR - Блок: "#Setting up Nginx-Server"
 # 24 - M2_01 - ISP - Блок: "#Setting up Nginx-Client"
+
+
+
+
+
+
+
+
+
+#ИГНОРИРУЙ И НИЧЕГО НЕ ТРОГАЙ ТУТ. ЭТО ВЫРЕЗКА СТАРОГО КОДА, НА ВСЯКИЙ
+
+#ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО - ЕСЛИ ПРИ ВВОДЕ КОМАНДЫ "su - hquser1" (для проверки, что пользователи есть) - ВВЕДИ КОМАНДУ НИЖЕ - она создаст папки пользователей. 
+################################################################## - А потом попробуй "su - hquser1" снова. Чтобы выйти напиши "exit". 
+for i in {1..5}; do
+  mkdir -p /home/AU-TEAM.IRPO/hquser$i
+  cp -r /etc/skel/. /home/AU-TEAM.IRPO/hquser$i/
+  chown -R hquser$i@au-team.irpo:domain\ users@au-team.irpo /home/AU-TEAM.IRPO/hquser$i
+done
+##################################################################
