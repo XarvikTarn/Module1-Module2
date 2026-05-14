@@ -31,15 +31,6 @@ Cmnd_Alias HQ_CMDS = /bin/cat, /bin/grep, /usr/bin/id
 %wheel ALL=(ALL) NOPASSWD: HQ_CMDS
 EOF
 
-#ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО ВАЖНО - ЕСЛИ ПРИ ВВОДЕ КОМАНДЫ "su - hquser1" (для проверки, что пользователи есть) - ВВЕДИ КОМАНДУ НИЖЕ - она создаст папки пользователей. 
-################################################################## - А потом попробуй "su - hquser1" снова. Чтобы выйти напиши "exit". 
-for i in {1..5}; do
-  mkdir -p /home/AU-TEAM.IRPO/hquser$i
-  cp -r /etc/skel/. /home/AU-TEAM.IRPO/hquser$i/
-  chown -R hquser$i@au-team.irpo:domain\ users@au-team.irpo /home/AU-TEAM.IRPO/hquser$i
-done
-##################################################################
-
 
 #ВВОДИ ЭТИ 4 КОМАНДЫ СТРОГО ПО 1 СТРОКЕ - ПОСЛЕ "su - hquser1" ВВЕДИ "sudo id" И "sudo reboot" (ошибка должна быть, всё норм) - ПОТОМ ВВЕДИ "exit" И ПОСЛЕ "exit" ДЕЛАЙ ОСТАЛЬНЫЕ КОМАНДЫ ПОТОМ
 mkdir -p /home/AU-TEAM.IRPO/hquser1
