@@ -65,5 +65,5 @@ ls -l /etc/nginx/sites-enabled.d/
 echo "127.0.0.1 web.au-team.irpo docker.au-team.irpo" >> /etc/hosts
 curl http://docker.au-team.irpo | head -n 10
 curl -I http://web.au-team.irpo
-curl -u WEBc:P@ssw0rd http://web.au-team.irpo | head -n 10
+curl -u WEB:P@ssw0rd http://web.au-team.irpo | head -n 10
 history -a
