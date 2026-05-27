@@ -35,10 +35,12 @@ ansible_python_interpreter=/usr/bin/python3
 [targets]
 192.168.1.10    
 192.168.2.10    
-172.16.1.10     
+192.168.1.1  
 192.168.3.1     
 EOF
 ansible all -m ping
+
+#ЕСЛИ 192.168.1.1 не заработает - попробуй 172.16.1.10 (скопируй код в Блокнот - замени на это - скопируй-вставь в консоль)
 
 #Setting up Samba-DC Server
 echo "nameserver 77.88.8.8" > /etc/resolv.conf
